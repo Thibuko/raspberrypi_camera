@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "raspberrypi-camera"
+version = "0.1.0"
+description = "Simple project to stream raspberry pi camera in a Docker"
+authors = ["Matthieu Flemal <mafl@hms.se>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint]
+line-length = 120
