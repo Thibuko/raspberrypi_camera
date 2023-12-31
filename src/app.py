@@ -17,15 +17,14 @@ Functions:
 
 import io
 from threading import Condition
-from flask import Flask
+from flask import Flask, Response
 
-from picamera2 import Picamera2
+from picamera2 import picamera2
 from picamera2.encoders import JpegEncoder
 from picamera2.outputs import FileOutput
 
 
 app = Flask(__name__)
-
 
 class StreamingOutput(io.BufferedIOBase):
     """A class representing a streaming output for the camera frames.
@@ -65,6 +64,7 @@ def generate_video():
 @app.route('/camera')
 def camera():
     """The camera route."""
+
     global picam2
     global cameraOutput
 
@@ -78,3 +78,8 @@ def camera():
         picam2.start_recording(JpegEncoder(), FileOutput(cameraOutput))
 
     return Response(generate_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+if __name__ == '__main__':
+    picam2 = None
+    cameraOutput = None
+    app.run(host='0.0.0.0', port=5000)
